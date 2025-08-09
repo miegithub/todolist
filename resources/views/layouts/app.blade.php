@@ -3,32 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>TodoList</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome CDN -->
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
+
     <!-- Toastr CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
-    <div class="container py-4">
-        @yield('content')
+    <div class="wrapper">
+
+        {{-- Navbar --}}
+        @include('partials.navbar')
+
+        {{-- Sidebar --}}
+        @include('partials.sidebar')
+
+        {{-- Content --}}
+        <div class="content-wrapper p-4">
+            @yield('content')
+        </div>
+
+        {{-- Footer --}}
+        @include('partials.footer')
+
     </div>
 
-    <!-- JQuery (required by Toastr) -->
+    <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Bootstrap JS (optional, for dropdowns/modals if needed) -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-    <!-- Toast Notification Script -->
+    <!-- Toast Notifications -->
     <script>
         @if(session('success'))
             toastr.success("{{ session('success') }}");

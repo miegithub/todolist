@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
-
 class TaskController extends Controller
 {
     public function index()
     {
-       $tasks = Task::latest()->get(); // ← Ito ang nag-fetch ng tasks
-    return view('tasks.index', compact('tasks')); // ← Ito ang nagpapasa sa view
+        $tasks = Task::latest()->get();
+        return view('tasks.index', compact('tasks'));
     }
 
     public function create()
@@ -25,7 +24,11 @@ class TaskController extends Controller
             'title' => 'required',
         ]);
 
-        Task::create($request->all());
+        Task::create([
+            'title' => $request->title,
+            'is_done' => $request->has('is_done') ? 1 : 0, // default unchecked
+        ]);
+
         return redirect()->route('tasks.index')->with('success', 'Task created.');
     }
 
@@ -45,7 +48,11 @@ class TaskController extends Controller
             'title' => 'required',
         ]);
 
-        $task->update($request->all());
+        $task->update([
+            'title' => $request->title,
+            'is_done' => $request->has('is_done') ? 1 : 0,
+        ]);
+
         return redirect()->route('tasks.index')->with('success', 'Task updated.');
     }
 
@@ -53,6 +60,16 @@ class TaskController extends Controller
     {
         $task->delete();
         return redirect()->route('tasks.index')->with('success', 'Task deleted.');
-
     }
+
+    
+public function toggleCompleted(Task $task)
+{
+    
+    $task->is_done = !$task->is_done;
+    $task->save();
+
+    return redirect()->back();
+}
+
 }
