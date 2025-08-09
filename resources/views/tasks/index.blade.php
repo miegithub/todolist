@@ -51,9 +51,9 @@
 </style>
 
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">📝 Things Todo List</h2>
+    <h2 class="mb-4 text-center">Todo List</h2>
 
-    <a href="{{ route('tasks.create') }}" class="btn btn-primary mb-3">+ Add Task</a>
+    <a href="{{ route('tasks.create') }}" class="btn btn-dark mb-3">+ Add Task</a>
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -67,10 +67,13 @@
                         @csrf
                         @method('PATCH')
                         <input 
-                            type="checkbox" 
-                            class="form-check-input me-2" 
-                            onchange="document.getElementById('toggleForm-{{ $task->id }}').submit();" 
-                            {{ $task->is_done ? 'checked' : '' }}>
+                           
+                        type="checkbox" 
+                        class="form-check-input me-2" 
+                        style="accent-color: pink;"
+                        onchange="document.getElementById('toggleForm-{{ $task->id }}').submit();" 
+                        {{ $task->is_done ? 'checked' : '' }}>
+
                         
                         <label class="form-check-label {{ $task->is_done ? 'text-decoration-line-through text-muted' : '' }}">
                             {{ $task->title }}
